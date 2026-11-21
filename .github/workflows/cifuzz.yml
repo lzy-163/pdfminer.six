@@ -37,3 +37,9 @@ jobs:
         # Path to SARIF file relative to the root of the repository
         sarif_file: cifuzz-sarif/results.sarif
         checkout_path: cifuzz-sarif
+    - name: Download SARIF
+      if: always() && steps.build.outcome == 'success'
+      uses: actions/download-artifact@v3
+      with:
+        name: sarif-file
+        path: cifuzz-sarif
