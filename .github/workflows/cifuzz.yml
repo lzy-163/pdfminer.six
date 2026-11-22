@@ -18,6 +18,7 @@ jobs:
         oss-fuzz-project-name: 'pdfminersix'
         language: python
     - name: Run Fuzzers
+      id: run
       uses: google/oss-fuzz/infra/cifuzz/actions/run_fuzzers@master
       with:
         oss-fuzz-project-name: 'pdfminersix'
@@ -31,7 +32,7 @@ jobs:
         name: artifacts
         path: ./out/artifacts
     - name: Upload Sarif
-      if: always() && steps.build.outcome == 'success'
+      if: always() && steps.run.outcome == 'success'
       uses: github/codeql-action/upload-sarif@v2
       with:
         # Path to SARIF file relative to the root of the repository
